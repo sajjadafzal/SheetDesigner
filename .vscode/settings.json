@@ -1,0 +1,9 @@
+{
+  "eslint.enable": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "editor.wordBasedSuggestions": false
+}
