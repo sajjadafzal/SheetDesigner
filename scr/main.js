@@ -1,6 +1,6 @@
 
 var canvas = new fabric.Canvas("mainCanvas");
-var myColor = new myColors(125,255,125);
+
 var rect = new fabric.Rect({
   left: 100,
   top: 150,
@@ -17,10 +17,10 @@ document.getElementById("b").onclick = (e)=>{
   //   fill: 'blue'
   // })
   //rect.left = rect.left - 10;
-  rect.angle = 0;
+  rect.rotate(Math.random() * 360);
   
   canvas.renderAll();
-  window.open("toolbox.html","Toolbox",'height=400,width=200');
+  //window.open("toolbox.html","Toolbox",'height=400,width=200');
 };
 
 

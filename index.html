@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sheet Designer</title>
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="shortcut icon" href="" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Sheet Designer</title>
-  <link rel="stylesheet" href="css/custom.css">
-  <link rel="shortcut icon" href="">
-</head>
+  <body>
+    <div id="divToolbar">
+      <button id="b"><i class="material-icons">
+          tab
+          </i><br> Rotate</button>
+    </div>
+    <div id="divCanvas">
+      <canvas id="mainCanvas" width="800" height="600"></canvas>
+    </div>
 
-<body>
-  <canvas id="mainCanvas" width="800" height="600"></canvas>
-  <input id="b" type="button" value="Go Right">
-  
+    <!-- <script src="scr/fabric.min.js"></script> -->
+    <script src="external_modules/fabric.js"></script>
+    <script src="scr/Colors.js"></script>
+    <script src="scr/main.js"></script>
+  </body>
+  <script>
+    // var canv = new fabric.Canvas("mainCanvas");
+    // var rct = new fabric.Rect({
+    //   left: 10,
+    //   top: 10,
+    //   fill: 'red',
+    //   width: 200,
+    //   height: 200
+    // });
 
-
-  <!-- <script src="scr/fabric.min.js"></script> -->
-  <script src="external_modules/fabric.js"></script>
-  <script src="scr/Colors.js"></script>
-  <script src="scr/main.js"></script>
-</body>
-<script>
-        // var canv = new fabric.Canvas("mainCanvas");
-        // var rct = new fabric.Rect({
-        //   left: 10,
-        //   top: 10,
-        //   fill: 'red',
-        //   width: 200,
-        //   height: 200
-        // });
-
-        // canv.add(rct);
-</script>
+    // canv.add(rct);
+  </script>
 </html>
