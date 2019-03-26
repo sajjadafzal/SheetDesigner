@@ -1,26 +1,36 @@
 
+var Mode = Object.freeze({"normal":1,"draw":2});
+var canvasMode = Mode.normal;
+
 var canvas = new fabric.Canvas("mainCanvas");
 
-var rect = new fabric.Rect({
-  left: 100,
-  top: 150,
-  fill: 'red',
-  width: 200,
-  height: 200
+var bgColorPermanent = new fabric.Color('rgb(0,0,0)');
+var bgColor = new fabric.Color('rgb(185,185,185)');
+
+var startx = null;
+var starty = null;
+
+var endx = null;
+var endy =  null;
+
+canvas.on('mouse:down',function(options){
+  startx = options.e.clientX;
+  starty = options.e.clientY;
+  canvasMode = Mode.draw;
 });
 
-canvas.add(rect);
-
-document.getElementById("b").onclick = (e)=>{
-  // rect.set({
-  //   left: rect.left + 10,
-  //   fill: 'blue'
-  // })
-  //rect.left = rect.left - 10;
-  rect.rotate(Math.random() * 360);
-  
-  canvas.renderAll();
-  //window.open("toolbox.html","Toolbox",'height=400,width=200');
-};
-
-
+canvas.on("mouse:up",function(options){
+  endx = options.e.clientX  ;
+  endy = options.e.clientY ;
+  if (canvasMode == Mode.draw) {
+    var rect = new fabric.Rect({
+      left: startx - canvas._offset.left,
+      top: starty - canvas._offset.top,
+      fill: 'red',
+      width: endx - startx,
+      height: endy - starty 
+    });
+    canvas.add(rect);
+    canvasMode = Mode.normal;
+  }
+});
