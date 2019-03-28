@@ -11,9 +11,20 @@
 
   <body>
     <div id="divToolbar">
-      <button id="b"><i class="material-icons md-48">
-          face
-          </i><br> Rotate</button>
+      <button id="clear"><i class="material-icons md-dark md-48">
+        remove_from_queue
+          </i><br> Clear
+      </button>
+      <button id="draw"><i class="material-icons md-dark md-48">
+        create
+        </i><br> draw
+      </button>
+      <button id="selection"><i class="material-icons md-dark md-48">
+        open_with
+        </i><br> Select
+      </button>
+      <span>No of Canvas Objects</span>
+      <span id="CanvasObjectsNumbers"></span>
     </div>
     <div id="divCanvas">
       <canvas id="mainCanvas" width="800" height="600"></canvas>
@@ -23,6 +34,7 @@
     <script src="external_modules/fabric.min.js"></script>
     <!-- <script src="scr/Colors.js"></script> -->
     <script src="scr/main.js"></script>
+    <script src="scr/toolbar.js"></script>
   </body>
   <script>
     // var canv = new fabric.Canvas("mainCanvas");

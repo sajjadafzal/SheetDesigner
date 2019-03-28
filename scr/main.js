@@ -1,4 +1,3 @@
-
 var Mode = Object.freeze({"normal":1,"draw":2});
 var canvasMode = Mode.normal;
 
@@ -13,24 +12,46 @@ var starty = null;
 var endx = null;
 var endy =  null;
 
+var shapeProps = {
+  hasRotatingPoint: false,
+  transparentCorners: false,
+  centeredScaling: true,
+  cornerStyle: 'circle',
+  padding: 5,
+};
 canvas.on('mouse:down',function(options){
-  startx = options.e.clientX;
-  starty = options.e.clientY;
+ 
+  let position = options.pointer;
+
+  startx = position.x;
+  starty = position.y;
   canvasMode = Mode.draw;
 });
 
 canvas.on("mouse:up",function(options){
-  endx = options.e.clientX  ;
-  endy = options.e.clientY ;
-  if (canvasMode == Mode.draw) {
+  /** @type {MouseEvent}*/
+  let e = options.e;
+  let position = options.pointer
+  //console.log(bgColor.toRgba());
+
+  if (e.ctrlKey == true) {
+    endx = position.x;
+    endy = position.y;
     var rect = new fabric.Rect({
-      left: startx - canvas._offset.left,
-      top: starty - canvas._offset.top,
-      fill: 'red',
+      left: startx,
+      top: starty,
       width: endx - startx,
-      height: endy - starty 
+      height: endy - starty ,
+      fill: 'transparent',
+      stroke: bgColor.toRgba(),
+      strokeWidth: 2,
+      ...shapeProps,
+
     });
     canvas.add(rect);
     canvasMode = Mode.normal;
+    canvas.renderAll();
+    DisplayCanvasInfo();
   }
 });
+

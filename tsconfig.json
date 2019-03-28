@@ -1,0 +1,7 @@
+{
+"compilerOptions": {
+    "allowJs": true,
+},
+ "include": ["scr"],
+ "exclude": ["node_modules"]
+}

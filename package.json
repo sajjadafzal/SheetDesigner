@@ -9,6 +9,7 @@
   "author": "Sajjad Afzal",
   "license": "ISC",
   "dependencies": {
+    "@types/fabric": "^2.6.5",
     "fabric": "^2.7.0"
   }
 }
