@@ -1,20 +1,23 @@
+document.getElementById("clear").onclick = e => {
+  canvas.clear();
+  DisplayCanvasInfo();
+};
 
- document.getElementById("clear").onclick = (e)=>{
-     canvas.clear();
-     DisplayCanvasInfo();
-    };
+document.getElementById("draw").onclick = e => {
+  canvasMode = Mode.draw;
+  canvas.forEachObject(function(obj) {
+    obj.selectable = false;
+  });
+};
 
-document.getElementById("draw").onclick = (e)=>{
-     
-     canvas.selection = false;
-    };
+document.getElementById("selection").onclick = e => {
+  canvasMode = Mode.normal;
+  canvas.forEachObject(function(obj) {
+    obj.selectable = true;
+  });
+};
 
-document.getElementById("selection").onclick = (e)=>{
-     canvas.selection = true;
-     DisplayCanvasInfo();
-    };
-   
-
-    
-
-var DisplayCanvasInfo = function(){ document.getElementById('CanvasObjectsNumbers').innerHTML = canvas._objects.length};
+var DisplayCanvasInfo = function() {
+  document.getElementById("CanvasObjectsNumbers").innerHTML =
+    canvas._objects.length;
+};

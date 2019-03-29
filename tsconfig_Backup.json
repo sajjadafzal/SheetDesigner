@@ -1,6 +1,6 @@
 {
 "compilerOptions": {
-    "allowJs": true,
+    "allowJs": true
 },
  "include": ["scr"],
  "exclude": ["node_modules"]
