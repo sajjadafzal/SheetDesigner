@@ -1,8 +1,8 @@
 var Mode = Object.freeze({ normal: 1, draw: 2 });
 var canvasMode = Mode.normal;
 
+fabric.Object.prototype.objectCaching = false;
 var canvas = new fabric.Canvas("mainCanvas");
-
 var bgColorPermanent = new fabric.Color("rgb(0,0,0)");
 var bgColor = new fabric.Color("rgb(185,185,185)");
 
@@ -12,8 +12,7 @@ var starty = null;
 var endx = null;
 var endy = null;
 //for testing the two different states of the same object
-var o1;
-var o2;
+var RectArray = [];
 
 var shapeProps = {
   hasRotatingPoint: false,
@@ -29,7 +28,8 @@ var shapeProps = {
 canvas.observe("object:modified", ObjectModified);
 canvas.observe("object:scaling", ObjectScaling);
 canvas.observe("object:scaled", ObjectScaled);
-canvas.observe("selection:created",SelectionCreated)
+canvas.observe("selection:created",SelectionCreated);
+canvas.on('mouse:move',MouseMove);
 canvas.on("mouse:down", function(options) {
   let position = options.pointer;
 
@@ -63,7 +63,8 @@ canvas.on("mouse:up", function(options) {
         });
         //console.log(rect.get('height'));
         canvas.add(rect);
-        o1 = rect;
+        console.log(rect);
+        RectArray.push(rect);
         canvas.renderAll();
         DisplayCanvasInfo();
       }
@@ -73,7 +74,7 @@ canvas.on("mouse:up", function(options) {
 
 function ObjectModified(e) {
   var o = e.target;
-
+  console.log(o);
   //if(!o.objectCaching) o.objectCaching = true;
   // o.width *= scaleX;
   // o.height *= scaleY;
@@ -107,11 +108,11 @@ function ObjectScaled(e) {
 
   if (!(o instanceof fabric.Group)) {
     o.set({
-      width: o.width * o.scaleX,
-      height: o.height * o.scaleY,
-      scaleX: 1,
-      scaleY: 1,
-      stroke: bgColor.toRgba()
+      // width: o.width * o.scaleX,
+      // height: o.height * o.scaleY,
+      // scaleX: 1,
+      // scaleY: 1,
+       stroke: bgColor.toRgba()
     });
   }
   else 
@@ -120,12 +121,16 @@ function ObjectScaled(e) {
     console.log(objs);
     canvas.getActiveObjects().forEach(function(item,index){
         item.set({
-          //width: item.width * o.scaleX,
-          //height: item.height * o.scaleY,
-          //scaleX: 1,
-          //scaleY: 1,
+          // width: item.width * item.zoomX,
+          // height: item.height * item.zoomY,
+          // scaleX: 1,
+          // scaleY: 1,
+          // zoomX: 1,
+          // zoomY: 1,
           //stroke: bgColor.toRgba()
         })
+        //item.group.set({scaleX:1,scaleY:1,zoomX:1,zoomY:1});
+         // scale
     });
   }
   // ob.width *= ob.scaleX;
@@ -140,4 +145,8 @@ function SelectionCreated(){
   console.log('selection created');
   var objs = canvas.getActiveObjects();
   console.log(objs);
+}
+
+function MouseMove(e){
+  DisplayMouseInfo(e);
 }
