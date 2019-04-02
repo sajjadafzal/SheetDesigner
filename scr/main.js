@@ -1,7 +1,12 @@
 var Mode = Object.freeze({ normal: 1, draw: 2 });
 var canvasMode = Mode.normal;
 
-fabric.Object.prototype.objectCaching = false;
+
+appSettings = {
+  shapesStrokeWidth: 2,
+};
+
+//fabric.Object.prototype.objectCaching = false;
 var canvas = new fabric.Canvas("mainCanvas");
 var bgColorPermanent = new fabric.Color("rgb(0,0,0)");
 var bgColor = new fabric.Color("rgb(185,185,185)");
@@ -21,7 +26,8 @@ var shapeProps = {
   cornerStyle: "circle",
   borderColor: "rgb(255,0,0)",
   padding: 0,
-  selectable: false
+  selectable: false,
+  strokeWidth: appSettings.shapesStrokeWidth,
   //noScaleCache: false,
 };
 
@@ -57,7 +63,6 @@ canvas.on("mouse:up", function(options) {
           height: height,
           fill: "transparent",
           stroke: bgColor.toRgba(),
-          strokeWidth: 2,
           ...shapeProps,
           padding: 0
         });
@@ -108,37 +113,33 @@ function ObjectScaled(e) {
 
   if (!(o instanceof fabric.Group)) {
     o.set({
-      // width: o.width * o.scaleX,
-      // height: o.height * o.scaleY,
-      // scaleX: 1,
-      // scaleY: 1,
+      width: o.width * o.scaleX,
+      height: o.height * o.scaleY,
+      scaleX: 1,
+      scaleY: 1,
        stroke: bgColor.toRgba()
     });
   }
   else 
   {
     var objs = canvas.getActiveObjects();
-    console.log(objs);
-    canvas.getActiveObjects().forEach(function(item,index){
-        item.set({
-          // width: item.width * item.zoomX,
-          // height: item.height * item.zoomY,
-          // scaleX: 1,
-          // scaleY: 1,
-          // zoomX: 1,
-          // zoomY: 1,
-          //stroke: bgColor.toRgba()
-        })
-        //item.group.set({scaleX:1,scaleY:1,zoomX:1,zoomY:1});
-         // scale
+    let xScale = canvas._activeObject.scaleX;
+    let yScale = canvas._activeObject.scaleY;
+    canvas.discardActiveObject();
+    objs.forEach(function(item, index) {
+      item.set({
+        width: item.width * xScale,
+        height: item.height * yScale,
+        scaleX: 1,
+        scaleY: 1,
+        strokeWidth: appSettings.shapesStrokeWidth,
+      });
     });
+    var selection = new fabric.ActiveSelection(objs,{canvas: canvas});
+    canvas.setActiveObject(selection);
+    canvas.requestRenderAll(); 
   }
-  // ob.width *= ob.scaleX;
-  // ob.height *= ob.scaleY;
-  // ob.scaleX = 1;
-  // ob.scaleY = 1;
-  //console.log(o instanceof fabric.Group);
-  //console.log(`Widh: ${ob.width} , Height: ${ob.height} , StrokeWidth: ${ob.strokeWidth}, ScaleX: ${ob.scaleX} , ScaleY: ${ob.scaleY} , ScaledWidth: ${scaledWidth}, ScaledHeight: ${scaledHeight}`);
+ 
 }
 
 function SelectionCreated(){
