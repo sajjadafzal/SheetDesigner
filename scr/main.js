@@ -31,6 +31,7 @@ var shapeProps = {
   //noScaleCache: false,
 };
 
+var qOptions = [' ','A','B','C','D','E','F'];
 canvas.observe("object:modified", ObjectModified);
 canvas.observe("object:scaling", ObjectScaling);
 canvas.observe("object:scaled", ObjectScaled);
@@ -150,4 +151,38 @@ function SelectionCreated(){
 
 function MouseMove(e){
   DisplayMouseInfo(e);
+}
+
+function DrawOptions(QNo, noOfOptions){
+  var qText = new fabric.Text("Q" + QNo,{left: 40, top: 40, fontSize:20, originX: 'center', originY: 'center'});
+  var grp = new fabric.Group();
+  grp.add(qText);
+  var rects = [];
+  let left = qText.left + 30;
+  let top = qText.top;
+  let width = 20;
+  let height = 20;
+  for (i = 1;i<=noOfOptions;i++){
+    let aRect = new fabric.Rect({
+      left: left,
+      top: top,
+      width: width,
+      height: height,
+      fill: "transparent",
+      stroke: bgColor.toRgba(),
+      originX: 'center',
+      originY: 'center',
+      ...shapeProps,      
+    });
+
+    let aText = new fabric.Text(qOptions[i], { 
+      fill: 'red', left: left, top: top, originX: 'center', originY: 'center',fontSize:12 });
+      grp.add(aRect);
+      grp.add(aText);
+    
+    left = left + 30;
+    }
+    grp.addWithUpdate();
+    canvas.add(grp);
+  
 }

@@ -19,6 +19,10 @@ document.getElementById("selection").onclick = e => {
   });
 };
 
+document.getElementById("DrawOptions").onclick = e => {
+  DrawOptions('2',5);
+};
+
 var DisplayCanvasInfo = function() {
   document.getElementById("CanvasObjectsNumbers").innerHTML =
     canvas._objects.length;
@@ -27,3 +31,4 @@ var DisplayCanvasInfo = function() {
 function DisplayMouseInfo(e){
   document.getElementById("Mouse").innerHTML = e.pointer.x + " : " + e.pointer.y;
 }
+
